@@ -427,6 +427,22 @@ var GiftedMessenger = React.createClass({
     return rowID;
   },
 
+  deleteMessage(rowID = null) {
+    //find indices to remove
+    var id_index = this._rowIds.indexOf(rowID);
+
+    if(id_index !== -1){
+      //remove the indices
+      this._rowIds.splice (id_index, 1);
+      this._data.splice (this._data.length-id_index, 1);
+
+      //update state
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(this._data, this._rowIds)
+      });
+    }
+  },
+
   refreshRows() {
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(this._data, this._rowIds),
